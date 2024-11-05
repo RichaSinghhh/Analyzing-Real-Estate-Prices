@@ -18,3 +18,9 @@ st.dataframe(df)
 
 st.sidebar.header("Filter Options")
 
+# gender filter
+price = st.sidebar.multiselect('bedrooms',
+                                options = df['bedrooms'].unique(),
+                                default = df['bedrooms'].unique())
+
+

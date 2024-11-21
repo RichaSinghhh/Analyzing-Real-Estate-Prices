@@ -1,5 +1,6 @@
 # Terminal -> cd Dashboard -> Enter
 # streamlit run Home.py -> Enter
+
 import streamlit as st
 import pandas as pd
 import seaborn as sns
@@ -7,9 +8,11 @@ import plotly.express as ps
 import plotly.graph_objects as go
 
 #logo
+
 st.sidebar.image("2D logo.png",width = 200)
 
 # header
+
 st.markdown(
     """
     <style>
@@ -29,14 +32,18 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 # Applying the custom heading
+
 st.markdown("<h1 class='custom-heading'>Analyzing Real Estate Prices</h1>", unsafe_allow_html=True)
 
 #Banner
+
 st.image("Assets\Banner.png", use_column_width=True)
 
 
 st.sidebar.title("Insights & Findings")
+
 st.sidebar.markdown("""
 ### Price Trends
 - Insights on the overall real estate market and trends over time.
@@ -50,6 +57,7 @@ st.sidebar.markdown("""
 
 
 st.sidebar.title("Dataset Details")
+
 st.sidebar.markdown("""
 **Total Records:** 21,613 properties
 
@@ -65,6 +73,7 @@ st.sidebar.markdown("""
 
 
 st.title("Welcome to the Real Estate Price Analysis Dashboard")
+
 st.markdown("""
 <p style='font-size:18px;'>This interactive dashboard is your gateway to uncovering hidden patterns, trends, and investment insights in the real estate market. Through powerful visualizations and data-driven insights, our tool transforms raw property data into valuable information. Dive into a comprehensive exploration of real estate prices across various regions and property types, helping you make informed decisions backed by data.</p>
 

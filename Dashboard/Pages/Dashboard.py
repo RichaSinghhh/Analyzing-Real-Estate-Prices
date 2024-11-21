@@ -1,5 +1,6 @@
 # Terminal -> cd Dashboard -> Enter
 # streamlit run Home.py -> Enter
+
 import streamlit as st
 import pandas as pd
 import seaborn as sns
@@ -7,9 +8,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # Load the dataset
+
 df = pd.read_csv('Housing.csv')
 
 # header
+
 st.markdown(
     """
     <style>
@@ -30,38 +33,46 @@ st.markdown(
     unsafe_allow_html=True
 )
 # Applying the custom heading
+
 st.markdown("<h1 class='custom-heading'>Analyzing Real Estate Prices</h1>", unsafe_allow_html=True)
 
 # Display the dataset
+
 st.dataframe(df)
 
 # for filter title
+
 st.sidebar.image("Assets\logo new.png",width = 200)
 st.sidebar.header("Filter Options")
 
 # Price filter
+
 min_price, max_price = st.sidebar.slider("Price",
                                      min_value = int(df['price'].min()),
                                      max_value = int(df['price'].max()),
                                      value = (int(df['price'].min()), int(df['price'].max())))
 
 # sqft_living filter
+
 min_sqft_living, max_sqft_living = st.sidebar.slider("Sqft_living",
                                      min_value = int(df['sqft_living'].min()),
                                      max_value = int(df['sqft_living'].max()),
                                      value = (int(df['sqft_living'].min()), int(df['sqft_living'].max())))
 
 # Floor filter
+
 floors = st.sidebar.multiselect('Floors',
                                    options = df['floors'].unique(),
                                    default = df['floors'].unique())
 
 # Condition filter
+
 waterfront = st.sidebar.multiselect('Waterfront',
                                    options = df['waterfront'].unique(),
                                    default = df['waterfront'].unique())
 
 #filter the data based on the user selection
+
 filtered_df = df[
     (df['price'] >= min_price)& 
     (df['price'] <= max_price)&
@@ -73,10 +84,14 @@ filtered_df = df[
 st.dataframe(filtered_df)
 
 # Create a scatter chart for Relationship between Sqft Lot and Bedrooms.
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Relationship between Sqft Lot and Bedrooms</h1>",unsafe_allow_html=True)
+
 rooms_lot = df.groupby('bedrooms') ['sqft_lot'].count().reset_index()
+
 fig = px.scatter(rooms_lot , x = 'sqft_lot', y = 'bedrooms', title = 'Relationship between Sqft Lot and Bedrooms',color_discrete_sequence=px.colors.sequential.Plasma)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p> 
@@ -102,13 +117,18 @@ st.markdown(
 )
 
 # Create a bar chart for Price Trends to Number of Bedrooms
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Price Trends to Number of Bedrooms</h1>", unsafe_allow_html=True)
+
 # Calculate the average price per number of bedrooms
+
 bedroom_price = df.groupby('bedrooms')['price'].mean().reset_index()
+
 fig = px.bar(bedroom_price, x='bedrooms', y='price', title='Price Trends to Number of Bedrooms', 
              labels={'bedrooms': 'Number of Bedrooms', 'price': 'Average Price (Millions)'}, 
              color='bedrooms', color_continuous_scale=px.colors.sequential.Viridis)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p> 
@@ -132,12 +152,16 @@ st.markdown(
 )
 
 # Create a histogram for price distribution
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Price Distribution</h1>", unsafe_allow_html=True)
+
 # Create a histogram for price distribution
+
 fig = px.histogram(df, x='price', nbins=50, title='Price Distribution', 
                    labels={'price': 'Property Prices (Millions)'}, 
                    color_discrete_sequence=px.colors.sequential.Plasma)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p> 
@@ -164,12 +188,15 @@ st.markdown(
 
 
 # Creating the line chart for Date vs Price
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Date vs Price</h1>", unsafe_allow_html=True)
-# Preparing data
+
 df['date'] = pd.to_datetime(df['date'])
 date_price = df.groupby('date')['price'].mean().reset_index()
+
 fig = px.line(date_price, x='date', y='price', title='Date vs Price', labels={'date': 'Date', 'price': 'Average Price (Millions)'}, color_discrete_sequence=px.colors.sequential.Plasma)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -194,13 +221,18 @@ st.markdown(
 
 
 # Create a bar chart for Price Trends to Number of Floors
+
 st.markdown("<h1 style='font-size:40px; text-align: center'>Price Trends to Number of Floors</h1>", unsafe_allow_html=True)
+
 # Calculate the average price per number of floors
+
 floors_price = df.groupby('floors')['price'].mean().reset_index()
+
 fig = px.bar(floors_price, x='floors', y='price', title='Price Trends to Number of Floors', 
              labels={'floors': 'Number of Floors', 'price': 'Average Price (Millions)'}, 
              color='floors', color_discrete_sequence=px.colors.sequential.Plasma)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -226,14 +258,18 @@ st.markdown(
 
 
 # Waterfront and View.
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Waterfront and View</h1>", unsafe_allow_html=True)
+
 # Creating the heatmap.
+
 waterfront_view = pd.crosstab(df['waterfront'], df['view'])
 fig = px.imshow(waterfront_view, labels = dict(x = 'View', y = 'Waterfront', color = 'Count'),
           x = waterfront_view.columns,
           y = waterfront_view.index,
           color_continuous_scale = 'viridis')
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -260,8 +296,11 @@ st.markdown(
 
 
 #Cross-tabulation between Grade and Condition.
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Cross-tabulation between Grade and Condition</h1>", unsafe_allow_html=True)
+
 # Creating the heatmap
+
 grade_condition = pd.crosstab(df['grade'], df['condition'])
 fig = px.imshow(grade_condition,
           labels = dict(x = 'Grade', y = 'Condition', color = 'count'),
@@ -270,6 +309,7 @@ fig = px.imshow(grade_condition,
           color_continuous_scale= 'viridis',
           title = 'Cross-tabulation between Grade and Condition')        
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -297,14 +337,20 @@ st.markdown(
 
 
 # House Price by Zipcode
+
 st.markdown("<h1 style='font-size:40px; text-align: center'>House Price by Zipcode</h1>", unsafe_allow_html= True)
+
 # Calculating median price by zipcode
+
 zipcode_price = df.groupby('zipcode')['price'].median().reset_index()
+
 # Creating the bar chart
+
 fig = px.bar(zipcode_price, x='zipcode', y='price', title='House Price by Zipcode',
              labels={'zipcode': 'Zipcode', 'price': 'Median Price (Millions)'},
              color='zipcode', color_continuous_scale=px.colors.sequential.Viridis)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -331,15 +377,21 @@ st.markdown(
 
 
 # House Price by year Built.
+
 st.markdown("<h1 style='font-size:40px; text-align: center'>House Price by Year Built</h1>", unsafe_allow_html=True)
+
 # Calculating median price by year built
+
 yr_built_price = df.groupby('yr_built')['price'].median().reset_index()
+
 # Creating the scatter chart with a regression line
+
 fig = px.scatter(yr_built_price, x='yr_built', y='price', trendline='ols', 
                  title='House Price by Year Built',
                  labels={'yr_built': 'Year Built', 'price': 'Median Price (Millions)'}, 
                  color_discrete_sequence=['#1f77b4'])
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -363,11 +415,15 @@ st.markdown(
 
 
 # Relationship between Sqft Living and Price
+
 st.markdown("<h1 style='font-size:40px; text-align: center'>Relationship between Sqft Living and Price</h1>",unsafe_allow_html=True)
+
 # Creating the scatter plot with a trend line
+
 fig = px.scatter(df, x='sqft_living', y='price', trendline='ols', title='Relationship between Sqft Living and Price',
                  labels={'sqft_living': 'Square Footage of Living Space', 'price': 'Price (Millions)'}, color_discrete_sequence=['#1f77b4'])
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -395,11 +451,15 @@ st.markdown(
 
 
 # Relationship between Sqft Lot and Price.
+
 st.markdown("<h1 style='font-size:40px; text-align: center'>Relationship between Sqft Lot and Price</h1>",unsafe_allow_html=True)
+
 # Creating the scatter plot with a trend line
+
 fig = px.scatter(df, x='sqft_lot', y='price', trendline='ols', title='Relationship between Sqft Lot and Price',
                  labels={'sqft_lot': 'Square Footage of Lot', 'price': 'Price (Millions)'}, color_discrete_sequence=['#1f77b4'])
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -427,14 +487,20 @@ st.markdown(
 
 
 # Relationship between Floors and Price.
+
 st.markdown("<h1 style='font-size:40px; text-align: center'>Relationship between Floors and Price</h1>",unsafe_allow_html=True)
+
 # Calculating median and standard deviation of price by floors
+
 floors_price = df.groupby('floors')['price'].agg(['median', 'std']).reset_index()
+
 # Creating the bar chart with error bars
+
 fig = px.bar(floors_price, x='floors', y='median', error_y='std', title='Relationship between Floors and Price',
              labels={'floors': 'Number of Floors', 'median': 'Median Price (Thousands)', 'std': 'Standard Deviation'},
              color='floors', color_continuous_scale=px.colors.sequential.Inferno)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -463,14 +529,20 @@ st.markdown(
 )
 
 # Relationship between View and Price.
+
 st.markdown("<h1 style='font-size:40px; text-align: center'>Relationship between View and Price</h1>",unsafe_allow_html=True)
+
 # Calculating median view and price
+
 view_price = df.groupby('view')['price'].median().reset_index()
+
 # Creating the box plot
+
 fig = px.box(df, x='view', y='price', title='Relationship between View and Price',
              labels={'view': 'View Quality', 'price': 'Price (Millions)'},
              color='view', color_discrete_sequence=px.colors.sequential.Teal)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -494,13 +566,18 @@ st.markdown(
 
 
 # Relationship between Condition and Price.
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Relationship between Condition and Price</h1>", unsafe_allow_html=True)
+
 # Calculating median condition and price.
+
 condition_price = df.groupby('condition')['price'].median().reset_index()
+
 fig = px.bar(condition_price, x='condition', y='price', title='Relationship between Condition and Price', 
              labels={'condition': 'Property Condition', 'price': 'Median Price (Thousands)'}, 
              color='condition', color_discrete_sequence=px.colors.sequential.Plasma)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -528,13 +605,18 @@ st.markdown(
 
 
 # Relationship between Grade and Price.
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Relationship between Grade and Price</h1>", unsafe_allow_html=True)
+
 # Calculating median Grade and price.
+
 grade_price = df.groupby('grade')['price'].median().reset_index()
+
 fig = px.bar(grade_price, x='grade', y='price', title='Relationship between Grade and Price', 
              labels={'grade': 'Grade', 'price': 'Median Price (Millions)'}, 
              color='grade', color_discrete_sequence=px.colors.sequential.Teal)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -559,12 +641,16 @@ st.markdown(
 
 
 # Relationship between Waterfront and Price.
+
 st.markdown("<h1 style = 'font-size:40px; text-align: center'>Relationship between Waterfront and Price</h1>",unsafe_allow_html=True)
+
 # Creating the violin plot with a color palette
+
 fig = px.violin(df, x='waterfront', y='price', title='Relationship between Waterfront and Price', 
                 labels={'waterfront': 'Waterfront Status', 'price': 'Price (Millions)'}, 
                 color='waterfront', color_discrete_sequence=px.colors.sequential.Inferno)
 st.plotly_chart(fig)
+
 st.markdown(
     """
     <p style='font-size:25px;'><b>Introduction</b></p>
@@ -588,7 +674,9 @@ st.markdown(
     """, 
     unsafe_allow_html=True
 )
+
 # header
+
 st.markdown(
     """
     <style>
@@ -608,10 +696,13 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 # Applying the custom heading
+
 st.markdown("<h1 class='custom-heading'>Overall Summary and Key Takeaways</h1>", unsafe_allow_html=True)
 
 #summary
+
 st.markdown("""
 
 <p style='font-size:20px;'><b>Aggregate Price Patterns</b></p>

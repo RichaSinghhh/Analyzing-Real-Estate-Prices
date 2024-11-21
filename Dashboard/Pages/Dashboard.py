@@ -34,7 +34,7 @@ st.markdown(
 )
 # Applying the custom heading
 
-st.markdown("<h1 class='custom-heading'>Analyzing Real Estate Prices</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='custom-heading'>Analyzing Housing Price Dataset</h1>", unsafe_allow_html=True)
 
 # Display the dataset
 

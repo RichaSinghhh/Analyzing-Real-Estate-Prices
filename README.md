@@ -28,7 +28,6 @@ This project analyzes **real estate price trends** using **Python, Pandas, Seabo
 ## 📂 How to Use
 Run the following commands to set up and execute the analysis:
 
-```sh
 git clone https://github.com/your-username/real-estate-analysis.git
 cd real-estate-analysis
 pip install pandas numpy matplotlib seaborn plotly jupyter
@@ -38,4 +37,4 @@ jupyter notebook
 For any queries, feel free to reach out:
 
 📩 Email: richa797926@gmail.com
-🔗 LinkedIn: Richa Singh
+🔗 LinkedIn: https://www.linkedin.com/in/richasingh2606/

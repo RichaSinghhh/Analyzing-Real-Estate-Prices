@@ -33,5 +33,7 @@ This project analyzes **real estate price trends** using **Python, Pandas, Seabo
 
 📧 Contact
 For any queries, feel free to reach out:
+
 📩 Email: richa797926@gmail.com
+
 🔗 LinkedIn: https://www.linkedin.com/in/richasingh2606/

@@ -25,16 +25,13 @@ This project analyzes **real estate price trends** using **Python, Pandas, Seabo
 - **Jupyter Notebook** – Interactive analysis environment  
 - **Excel & CSV** – Data extraction and cleaning  
 
-## 📂 How to Use
-Run the following commands to set up and execute the analysis:
-
-git clone https://github.com/your-username/real-estate-analysis.git
-cd real-estate-analysis
-pip install pandas numpy matplotlib seaborn plotly jupyter
-jupyter notebook
+## 📂 How to Use  
+1. Download the **Real_Estate_Analysis.ipynb** file from this repository.  
+2. Open it in **Jupyter Notebook**.  
+3. Run the notebook to explore **real estate trends, price distributions, and key insights**.  
+4. Interact with the visualizations to gain **data-driven property insights**.  
 
 📧 Contact
 For any queries, feel free to reach out:
-
 📩 Email: richa797926@gmail.com
 🔗 LinkedIn: https://www.linkedin.com/in/richasingh2606/

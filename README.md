@@ -33,4 +33,4 @@ For any queries, feel free to reach out:
 
 📩 Email: richa797926@gmail.com
 
-🔗 LinkedIn: Richa Singh
+🔗 LinkedIn: https://www.linkedin.com/in/richasingh2606/
